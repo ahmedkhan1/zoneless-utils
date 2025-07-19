@@ -1,59 +1,122 @@
-# ZonelessUtils
+# Zoneless Utility Toolkit for Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+A lightweight utility library to help you build **Angular apps without Zone.js** — using Signals, manual change detection, and smart async strategies.
 
-## Development server
+## ✨ Features
 
-To start a local development server, run:
+- ✅ `zonelessAsync` pipe
+- ✅ `useIntervalSignal` / `useTimeoutSignal`
+- ✅ `runWithChangeDetection()`
+- ✅ `markForCheck()`
+- ✅ `useAnimationFrameSignal()`
+- ✅ `*zonelessIf` directive (Signal-aware structural conditional)
+- ✅ `useResizeSignal()` — Track window resize as a signal
+- ✅ `useIdleSignal()` — Emit when user is idle (e.g. no mouse/keyboard for X ms)
 
+
+
+## 📦 Installation
 ```bash
-ng serve
+npm install zoneless-utils
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Usage
 
-## Code scaffolding
+## Interval Signals
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```ts
+import { useIntervalSignal } from 'zoneless-utils';
 
-```bash
-ng generate component component-name
+const counter = useIntervalSignal(1000);
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+```html
+<p>Tick: {{ counter | zonelessAsync }}</p>
 ```
 
-## Building
+## Zoneless Conditional Rendering Directive
+```ts
+import { ZonelessIfDirective } from 'zoneless-utils';
 
-To build the project run:
-
-```bash
-ng build
+// Component definition using Angular Standalone API
+@Component({
+  selector: 'app-root', 
+  standalone: true, 
+  imports: [ZonelessIfDirective],
+  templateUrl: './app.html',
+})
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```html
+<div *zonelessIf="counter() % 2 === 0">Even Tick</div>
 ```
 
-## Running end-to-end tests
+## Manual change detection
 
-For end-to-end (e2e) testing, run:
+```ts
+import { runWithChangeDetection } from 'zoneless-utils';
 
-```bash
-ng e2e
+runWithChangeDetection(this.cdr, () => {
+  this.someValue = 'Updated!';
+});
+
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Idle Signal for tracking when user is idle (e.g. no mouse/keyboard for X ms)
 
-## Additional Resources
+```ts
+import { useIdleSignal } from 'zoneless-utils';
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+idleSignal = useIdleSignal(5000); // 5 seconds
+
+```
+```html
+<p *zonelessIf="idleSignal()">🛌 User is idle</p>
+```
+
+## Resize Signal for Tracking window resize
+
+```ts
+import { useResizeSignal } from 'zoneless-utils';
+
+resizeSignal = useResizeSignal();
+
+```
+```html
+<p>📏 Window Size: {{ resizeSignal() | json }}</p>
+```
+
+
+## 📚 API Reference
+- **zonelessAsync** — Bind a signal directly in the template.
+- **useIntervalSignal(ms)** — Emits a number every `ms` milliseconds.
+- **useTimeoutSignal(ms)** — Emits `true` once after the timeout.
+- **runWithChangeDetection(cdr, fn)** — Runs a function and triggers change detection.
+- **markForCheck(cdr)** — Marks a component for check manually.
+- **useAnimationFrameSignal()** - Emits timestamp on each requestAnimationFrame call — great for animations.
+- ***zonelessIf="condition"** - Like *ngIf, but supports Signals as input.
+- **useResizeSignal()** — Track window resize as a signal
+
+
+
+
+## 🧱 Demo
+
+You can run a live demo in this workspace:
+
+```ts
+ng build zoneless-utils
+ng serve demo-app
+```
+
+## 🛠️ Contributing
+
+- Fork the repo
+
+- Add a utility to src/lib/
+
+- Export it in public-api.ts
+
+- Add a demo usage
+
+- Submit a PR!
