@@ -8,6 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmedkhan1/zoneless-utils.git"
+  },
   "prettier": {
     "overrides": [
       {
