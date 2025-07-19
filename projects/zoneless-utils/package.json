@@ -7,6 +7,10 @@
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmedkhan1/zoneless-utils.git"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   },
