@@ -1,0 +1,16 @@
+<h1>Zoneless Utils Demo</h1>
+
+<p>🕒 Interval Counter: {{ intervalSignal | zonelessAsync }}</p>
+<p>⏲️ Timeout Done: {{ timeoutSignal | zonelessAsync }}</p>
+
+<p>🎞️ Animation Frame Time: {{ animationFrame | zonelessAsync }}</p>
+
+<div *zonelessIf="animationFrame() % 2 < 1000">🟢 Visible on first half of each second</div>
+
+<p *zonelessIf="idleSignal()">🛌 User is idle</p>
+<p *zonelessIf="!idleSignal()">🧍 User is active</p>
+
+<p>📏 Window Size: {{ resizeSignal() | json }}</p>
+
+<button (click)="runManualChangeDetection()">Run Manual Change Detection</button>
+<p *zonelessIf="showManualChange">✅ Manual detection triggered!</p>

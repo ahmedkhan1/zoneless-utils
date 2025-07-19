@@ -1,0 +1,7 @@
+src/
+tsconfig.*
+angular.json
+demo-app/
+*.ts
+*.spec.ts
+node_modules/

@@ -1,0 +1,14 @@
+{
+  "name": "zoneless-utils",
+  "description": "Zoneless Utility Toolkit for Angular using Signals",
+  "version": "0.0.1",
+  "keywords": ["angular", "signals", "zonejs", "utility", "performance"],
+  "peerDependencies": {
+    "@angular/common": "^20.1.0",
+    "@angular/core": "^20.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
